@@ -1,38 +1,17 @@
-//import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+"use client"
+import { useEffect } from "react";
 import Hero from "./(components)/Hero/Hero/Hero";
-import client from "./lib/contentful";
-//import { RecipeProps } from "./lib/contentfulInterface";
-import { Document as RichTextDocument } from '@contentful/rich-text-types'
-import { Asset, Entry, EntrySkeletonType } from "contentful";
+import { allRecipe } from "./api/RecipeInfo/route";
 
-export default async function Home() {
-
-  const fetchEntries = async () => {
-    try{
-      const entries = await client.getEntries({content_type: "recipes"})
-      return entries.items;
-    } catch(error){
-      console.log('error fetching entries:', error)
+export default function Home() {
+  useEffect(()=>{
+    const getData = async () => {
+      const data = await allRecipe()
+      console.log("This is Recipe Data",data)
+      
     }
-  }
-
-  const entries:Entry<EntrySkeletonType, undefined, string>[]|undefined = await fetchEntries();
-  
-  if(entries){
-
-    const cmsImage = entries[0].fields.recipeImg as Asset
-    const cmsDescription = entries[0].fields.recipeDescription as RichTextDocument
-
-    console.log("entries: ", entries);
-    console.log("title: ", entries[0].fields.recipeName);
-    console.log("Image: ", "https:"+cmsImage.fields.file?.url);
-    console.log("Desc: ", cmsDescription.content);
-//    console.log("Desc: ", cmsDescription?.content);
-    console.log("Price: ", entries[0].fields.price)
-    console.log("Category: ", entries[0].fields.category)
-    console.log("Ingredients: ", entries[0].fields.ingredients)    
-  }
-//  console.dir(entries, {depth:null})
+    getData()
+  },[])
 
   return (
     <div>
