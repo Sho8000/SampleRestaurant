@@ -14,15 +14,6 @@ interface RecipeData {
   recipeIngredients: string;
 }
 
-interface RecipeData {
-  recipeName: string;
-  recipeImage: string;
-  recipeDescription: RichTextDocument["content"];
-  recipePrice: number;
-  recipeCategory: string;
-  recipeIngredients: string;
-}
-
 export default function Home() {
   const [recipeData,setRecipeData] = useState<RecipeData[]>([])
   useEffect(()=>{
