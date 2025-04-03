@@ -1,35 +1,37 @@
 "use client"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Hero from "./(components)/Hero/Hero/Hero";
 import { allRecipe } from "./lib/getRecipe";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { Document as RichTextDocument, BLOCKS } from '@contentful/rich-text-types'
+
+interface RecipeData {
+  recipeName: string;
+  recipeImage: string;
+  recipeDescription: RichTextDocument["content"];
+  recipePrice: number;
+  recipeCategory: string;
+  recipeIngredients: string;
+}
+
+interface RecipeData {
+  recipeName: string;
+  recipeImage: string;
+  recipeDescription: RichTextDocument["content"];
+  recipePrice: number;
+  recipeCategory: string;
+  recipeIngredients: string;
+}
 
 export default function Home() {
+  const [recipeData,setRecipeData] = useState<RecipeData[]>([])
   useEffect(()=>{
     const getData = async () => {
 
       const data = await allRecipe()
+      setRecipeData(data)
       console.log("This is Recipe Data",data)
 
-
-//////////////////////////////////      
-/*       const items:object[] = []
-      const entries:Entry<EntrySkeletonType, undefined, string>[]|undefined = await getRecipe();
-      if(entries){
-        entries.map((item)=>{
-          const cmsImage = item.fields.recipeImg as Asset
-          const cmsDescription = item.fields.recipeDescription as RichTextDocument
-  
-          items.push({
-            recipeName:item.fields.recipeName,
-            recipeImage:"https"+cmsImage.fields.file?.url,
-            recipeDescription:cmsDescription.content,
-            recipePrice:item.fields.price,
-            recipeCategory:item.fields.category,
-            recipeIngredients:item.fields.ingredients,
-          })
-        })
-      }
-      console.log("This is Recipe Data",items) */
     }
     getData()
   },[])
@@ -37,7 +39,13 @@ export default function Home() {
   return (
     <div>
       <Hero/>
-{/*       {documentToReactComponents(entries[0].fields.category)} */}
+      {recipeData.length!==0?(<>
+        {documentToReactComponents({
+            nodeType: BLOCKS.DOCUMENT,
+            content: recipeData[0].recipeDescription,
+            data: {}
+          })}
+      </>):(<></>)}
     </div>
   );
 }

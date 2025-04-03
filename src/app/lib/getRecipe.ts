@@ -11,24 +11,33 @@ const getRecipe = async () => {
     }
   }
 
-export const allRecipe = async () => {
-    const data:object[] = []
-    const entries:Entry<EntrySkeletonType, undefined, string>[]|undefined = await getRecipe();
+  interface RecipeData {
+    recipeName: string;
+    recipeImage: string;
+    recipeDescription: RichTextDocument["content"];
+    recipePrice: number;
+    recipeCategory: string;
+    recipeIngredients: string;
+  }
+  
+export const allRecipe = async () :Promise<RecipeData[]> => {
+    const data:RecipeData[] = []
+    const entries:Entry<EntrySkeletonType>[]|undefined = await getRecipe();
     if(entries){
       entries.map((item)=>{
         const cmsImage = item.fields.recipeImg as Asset
         const cmsDescription = item.fields.recipeDescription as RichTextDocument
 
         data.push({
-          recipeName:item.fields.recipeName,
-          recipeImage:"https"+cmsImage.fields.file?.url,
-          recipeDescription:cmsDescription.content,
-          recipePrice:item.fields.price,
-          recipeCategory:item.fields.category,
-          recipeIngredients:item.fields.ingredients,
+          recipeName:item.fields.recipeName as string,
+          recipeImage:`https+${cmsImage.fields.file?.url}` as string,
+          recipeDescription:cmsDescription.content as RichTextDocument["content"],
+          recipePrice:item.fields.price as number,
+          recipeCategory:item.fields.category as string,
+          recipeIngredients:item.fields.ingredients as string,
         })
       })
     }
-    return data
+    return data as RecipeData[]
 }
   
