@@ -1,4 +1,4 @@
-import { Asset, Entry, EntrySkeletonType } from "contentful";
+/* import { Asset, Entry, EntrySkeletonType } from "contentful";
 import { Document as RichTextDocument } from '@contentful/rich-text-types'
 import client from "./contentful";
 
@@ -32,4 +32,4 @@ export const allRecipe = async () => {
   return data
 
 }
-  
+   */
