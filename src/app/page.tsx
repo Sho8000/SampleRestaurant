@@ -1,14 +1,18 @@
 "use client"
 import { useEffect } from "react";
 import Hero from "./(components)/Hero/Hero/Hero";
-import { getRecipe } from "./api/RecipeInfo/route";
-import { Asset, Entry, EntrySkeletonType } from "contentful";
-import { Document as RichTextDocument } from '@contentful/rich-text-types'
+import { allRecipe } from "./lib/getRecipe";
 
 export default function Home() {
   useEffect(()=>{
     const getData = async () => {
-      const items:object[] = []
+
+      const data = await allRecipe()
+      console.log("This is Recipe Data",data)
+
+
+//////////////////////////////////      
+/*       const items:object[] = []
       const entries:Entry<EntrySkeletonType, undefined, string>[]|undefined = await getRecipe();
       if(entries){
         entries.map((item)=>{
@@ -25,7 +29,7 @@ export default function Home() {
           })
         })
       }
-      console.log("This is Recipe Data",items)
+      console.log("This is Recipe Data",items) */
     }
     getData()
   },[])
