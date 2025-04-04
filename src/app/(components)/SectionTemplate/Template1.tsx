@@ -1,6 +1,6 @@
-import { RecipeData } from "@/app/page";
 import MenuCard from "../Cards/MenuCard";
 import Button from "../Button/Button";
+import { RecipeData } from "@/app/lib/getRecipe";
 
 interface SectionTemplate1Props {
   sectionTitle:string

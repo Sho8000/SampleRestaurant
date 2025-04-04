@@ -1,35 +1,41 @@
 "use client"
 import { useEffect, useState } from "react";
 import Hero from "./(components)/Hero/Hero";
-import { allRecipe } from "./lib/getRecipe";
+import { allRecipe, RecipeData } from "./lib/getRecipe";
 import SectionTemplate1 from "./(components)/SectionTemplate/Template1";
-import { Document as RichTextDocument } from '@contentful/rich-text-types'
-
-export interface RecipeData {
-  recipeName: string;
-  recipeImage: string;
-  recipeDescription: RichTextDocument["content"];
-  recipePrice: number;
-  recipeCategory: string;
-  recipeIngredients: string;
-}
+import { allEvent, EventData } from "./lib/getEvent";
 
 export default function Home() {
-  const [recipeData,setRecipeData] = useState<RecipeData[]>([])
+  const [recipeData,setRecipeData] = useState<RecipeData[]>([]);
+  const [eventData,setEventData] = useState<EventData[]>([]);
 
   useEffect(()=>{
-    const getData = async () => {
+    const getRecipe = async () => {
       const data = await allRecipe()
       setRecipeData(data)
-      console.log("This is Recipe Data",data)
     }
-    getData()
+    getRecipe()
   },[setRecipeData])
+  
+  useEffect(()=>{
+    const getEvent = async () => {
+      const data = await allEvent()
+      setEventData(data)
+    }
+    getEvent()
+  },[setEventData])
 
   return (
     <div>
       <Hero/>
       <SectionTemplate1 sectionTitle="Featured Dishes" howMany={3} recipeData={recipeData} btn={true} cardType="menuCard"/>
+
+    {eventData.length!==0?(<>
+      <p>{eventData[0].eventTitle}</p>
+      <p>{eventData[0].eventDate}</p>
+      <p>{eventData[0].eventImage}</p>
+      <p>{eventData[0].buttonText}</p> 
+    </>):(<></>)}
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { Asset, Entry, EntrySkeletonType } from "contentful";
 import { Document as RichTextDocument } from '@contentful/rich-text-types'
 import client from "@/app/lib/contentful";
 
-interface RecipeData {
+export interface RecipeData {
   recipeName: string;
   recipeImage: string;
   recipeDescription: RichTextDocument["content"];

@@ -1,7 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
-import { RecipeData } from "../page";
-import { allRecipe } from "../lib/getRecipe";
+import { allRecipe, RecipeData } from "../lib/getRecipe";
 import SectionTemplate1 from "../(components)/SectionTemplate/Template1";
 
 export default function Home() {
