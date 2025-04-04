@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.0.1",
+    "@prisma/client": "^6.5.0",
     "contentful": "^11.5.12",
     "motion": "^12.6.3",
     "next": "15.2.4",
@@ -20,12 +21,14 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^20.17.30",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.2.4",
+    "prisma": "^6.5.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
   }
 }
