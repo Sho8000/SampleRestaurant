@@ -41,7 +41,7 @@ const footerFollowUs:footerCardData = {
 export default function Footer() {
   return (
     <section className='bg-blue-950 py-[3rem]'>
-      <div className={`flex justify-center gap-[1rem] ${Styles.footerConponent}`}>
+      <div className={`flex justify-around gap-[1rem] ${Styles.footerConponent}`}>
         <FooterCard footerData={footerContact}/>
         <FooterCard footerData={footerOpeningHours}/>
         <FooterCard footerData={footerFollowUs}/>
