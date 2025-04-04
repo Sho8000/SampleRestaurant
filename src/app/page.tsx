@@ -29,7 +29,7 @@ export default function Home() {
   return (
     <div>
       <Hero/>
-      <SectionTemplate1 sectionTitle="Featured Dishes" howMany={3} recipeData={recipeData}/>
+      <SectionTemplate1 sectionTitle="Featured Dishes" howMany={3} recipeData={recipeData} btn={true}/>
     </div>
   );
 }
