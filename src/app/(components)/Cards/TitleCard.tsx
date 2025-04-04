@@ -1,6 +1,7 @@
 "use client"
 import { motion } from "motion/react"
 import Styles from "./Cards.module.css"
+import Link from "next/link";
 
 export default function TitleCard() {
   return (
@@ -11,10 +12,14 @@ export default function TitleCard() {
     >
       <h1 className="font-bold text-4xl">NextJS Sample Restaurant</h1>
       <p>Discover a unique culinary experience with our fusion of traditional and modern flavors</p>
-      <motion.button 
-        className="border-2 border-white w-fit px-[1rem] py-[5px] rounded-md"
-        whileHover={{translateY:"-3px",cursor:"pointer"}}
-      >View Menu</motion.button>
+      <Link
+        href={"/menu"}
+      >
+        <motion.button 
+          className="border-2 border-white w-fit px-[1rem] py-[5px] rounded-md"
+          whileHover={{translateY:"-3px",cursor:"pointer"}}
+        >View Menu</motion.button>
+      </Link>
     </motion.div>
   );
 }

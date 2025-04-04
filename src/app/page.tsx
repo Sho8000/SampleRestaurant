@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
-import Hero from "./(components)/Hero/Hero/Hero";
+import Hero from "./(components)/Hero/Hero";
 import { allRecipe } from "./lib/getRecipe";
 import SectionTemplate1 from "./(components)/SectionTemplate/Template1";
 import { Document as RichTextDocument } from '@contentful/rich-text-types'

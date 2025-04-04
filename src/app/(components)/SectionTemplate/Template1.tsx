@@ -1,5 +1,5 @@
 import { RecipeData } from "@/app/page";
-import MenuCard from "../Hero/Cards/MenuCard";
+import MenuCard from "../Cards/MenuCard";
 import Button from "../Button/Button";
 
 interface SectionTemplate1Props {

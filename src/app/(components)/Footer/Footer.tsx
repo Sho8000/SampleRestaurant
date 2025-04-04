@@ -1,5 +1,5 @@
 import { FaFacebook, FaInstagram, FaTwitter, FaYelp } from 'react-icons/fa';
-import FooterCard from '../Hero/Cards/FooterCard';
+import FooterCard from '../Cards/FooterCard';
 import { ReactElement } from 'react';
 import Styles from "./Footer.module.css"
 
