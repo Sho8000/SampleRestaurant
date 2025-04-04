@@ -28,14 +28,9 @@ export default function Home() {
   return (
     <div>
       <Hero/>
-      <SectionTemplate1 sectionTitle="Featured Dishes" howMany={3} recipeData={recipeData} btn={true} cardType="menuCard"/>
+      <SectionTemplate1 sectionTitle="Featured Dishes" howMany={3}  recipeData={recipeData} btn={true} cardType="menuCard"/>
 
-    {eventData.length!==0?(<>
-      <p>{eventData[0].eventTitle}</p>
-      <p>{eventData[0].eventDate}</p>
-      <p>{eventData[0].eventImage}</p>
-      <p>{eventData[0].buttonText}</p> 
-    </>):(<></>)}
+      <SectionTemplate1 sectionTitle="Upcoming Events" howMany={2} eventData={eventData} cardType="eventCard"/>
     </div>
   );
 }

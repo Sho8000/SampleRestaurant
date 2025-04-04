@@ -10,7 +10,6 @@ export default function Home() {
     const getData = async () => {
       const data = await allRecipe()
       setRecipeData(data)
-      console.log("This is Recipe Data",data)
     }
     getData()
   },[setRecipeData])

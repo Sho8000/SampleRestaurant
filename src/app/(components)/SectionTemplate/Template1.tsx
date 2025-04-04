@@ -1,25 +1,30 @@
 import MenuCard from "../Cards/MenuCard";
 import Button from "../Button/Button";
 import { RecipeData } from "@/app/lib/getRecipe";
+import { EventData } from "@/app/lib/getEvent";
+import EventCard from "../Cards/EventCard";
 
 interface SectionTemplate1Props {
   sectionTitle:string
   howMany?:number;
-  recipeData:RecipeData[]
+  recipeData?:RecipeData[]
+  eventData?:EventData[]
   btn?:boolean;
-  cardType:"menuCard"|"eventCard"
+  cardType:"menuCard"|"eventCard";
 }
 
-export default function SectionTemplate1 ({sectionTitle,howMany,recipeData,btn,cardType}:SectionTemplate1Props) {
-  const recipeLength = howMany || recipeData.length;
+export default function SectionTemplate1 ({sectionTitle,howMany,recipeData,btn,cardType,eventData}:SectionTemplate1Props) {
+
+  const recipeLength = howMany || recipeData?.length;
+  const eventLength = howMany || eventData?.length;
 
   const chooseCard = () => {
     switch (cardType) {
       case "menuCard":
-        return <MenuCard recipeData={recipeData.slice(0,recipeLength)}/>
+        return <MenuCard recipeData={recipeData!.slice(0,recipeLength)}/>
     
       case "eventCard":
-        return <></>        
+        return <EventCard eventData={eventData!.slice(0,eventLength)}/>        
     }
   }
   return (
