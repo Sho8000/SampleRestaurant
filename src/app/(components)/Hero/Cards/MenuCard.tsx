@@ -1,7 +1,7 @@
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Image from "next/image";
 import { BLOCKS } from '@contentful/rich-text-types'
-import { RecipeData } from "@/app/(context)/RecipeData";
+import { RecipeData } from "@/app/page";
 
 interface recipeProps {
   recipeData:RecipeData[]

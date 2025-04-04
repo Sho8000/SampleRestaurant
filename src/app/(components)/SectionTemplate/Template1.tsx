@@ -1,13 +1,13 @@
-import { useRecipeDataContext } from "@/app/(context)/RecipeData";
+import { RecipeData } from "@/app/page";
 import MenuCard from "../Hero/Cards/MenuCard";
 
 interface SectionTemplate1Props {
   sectionTitle:string
   howMany?:number;
+  recipeData:RecipeData[]
 }
 
-export default function SectionTemplate1 ({sectionTitle,howMany}:SectionTemplate1Props) {
-  const {recipeData} = useRecipeDataContext();
+export default function SectionTemplate1 ({sectionTitle,howMany,recipeData}:SectionTemplate1Props) {
   const recipeLength = howMany || recipeData.length;
 
   return (
