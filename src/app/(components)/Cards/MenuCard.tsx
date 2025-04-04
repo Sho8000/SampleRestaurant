@@ -11,7 +11,7 @@ export default function MenuCard({recipeData}:recipeProps) {
 
   return (
     <>
-      {recipeData.map((item,index)=><div key={index} className="w-[300px] border-1 border-black shadow-md rounded-md px-[20px] py-[10px]">
+      {recipeData.map((item,index)=><div key={index} className="w-[300px] border-1 border-black shadow-md rounded-md px-[20px] py-[10px] bg-[#fefefe]">
         <Image
           className="m-auto my-[10px] rounded-md"
           src={item.recipeImage}

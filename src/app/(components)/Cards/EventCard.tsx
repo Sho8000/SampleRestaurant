@@ -17,7 +17,7 @@ export default function EventCard({eventData}:eventProps) {
 
   return (
     <>
-      {eventData.map((item,index)=><div key={index} className="w-[450px] border-1 border-black shadow-md rounded-md">
+      {eventData.map((item,index)=><div key={index} className="w-[450px] border-1 border-black shadow-md rounded-md bg-[#fefefe]">
         <Image
           className="m-auto rounded-t-md"
           src={item.eventImage}
@@ -35,6 +35,10 @@ export default function EventCard({eventData}:eventProps) {
             content: item.eventDescription,
             data: {}
           })}
+        <div className="my-[1rem]">
+          <button className="bg-[#171717] text-[#ededed] rounded-md px-[1.5rem] py-[0.5rem]">{item.buttonText}</button>
+        </div>
+
         </div>
       </div>)}        
     </>
