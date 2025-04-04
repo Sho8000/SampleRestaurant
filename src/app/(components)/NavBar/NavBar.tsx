@@ -4,7 +4,7 @@ export default function NavBar() {
   return (
     <>
       <nav className="w-[100%] fixed bg-white/50 text-[#0a0a0a] backdrop-blur-md top-0 left-0 z-10 py-[1rem]">
-      <div className="flex justify-between mx-[1rem]">
+      <div className="flex justify-between items-center mx-[1rem]">
         <div>
           <Link
             href={"/"}

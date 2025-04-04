@@ -10,7 +10,6 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
-    // domains: ['images.ctfassets.net'],
   },
   env: {
     CONTENTFUL_SPACE_ID: process.env.CONTENTFUL_SPACE_ID,
