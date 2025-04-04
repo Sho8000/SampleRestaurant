@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <div>
-      <SectionTemplate1 sectionTitle="Menu" recipeData={recipeData}/>
+      <SectionTemplate1 sectionTitle="Menu" recipeData={recipeData} cardType="menuCard"/>
     </div>
   );
 }
