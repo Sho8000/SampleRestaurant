@@ -2,9 +2,11 @@
 import { useEffect, useState } from "react";
 import { allRecipe, RecipeData } from "../lib/getRecipe";
 import SectionTemplate1 from "../(components)/SectionTemplate/Template1";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
   const [recipeData,setRecipeData] = useState<RecipeData[]>([])
+  const { data: session } = useSession()
 
   useEffect(()=>{
     const getData = async () => {
@@ -17,6 +19,7 @@ export default function Home() {
   return (
     <div>
       <SectionTemplate1 sectionTitle="Menu" recipeData={recipeData} cardType="menuCard"/>
+      <pre>{JSON.stringify(session)}</pre>
     </div>
   );
 }

@@ -46,7 +46,7 @@ export default function UserLogin() {
         onChange={(e)=>setLogin({...login,password:e.target.value})}
         required
       />
-
+      <p>*sampleEmail&password: <span className="text-red-600">email1@123</span></p>
       <button
         className="rounded-sm p-[10px] bg-[#0a0a0a] text-[#ededed]"
         onClick={loginHandler}
