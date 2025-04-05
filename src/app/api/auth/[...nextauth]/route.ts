@@ -1,6 +1,8 @@
 import { hashCompare, hashPassword } from '@/app/lib/hashPass';
+import { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth, { type NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import { NextRequest, NextResponse } from 'next/server'; 
 
 const admin = [
   { id: 1, name: "Anderson", languages:["English"], phone:"+1 604-600-9173", email:"Anderson@test.com", password:"$2b$10$MlxmvLIWEV.OqQnDt0yK7uAMmZG9D/34XytFsVKPWbhsAzbEuyv.i" }, //initial Password "email1@123"
@@ -75,5 +77,16 @@ export const authOptions: NextAuthOptions = {
 
 }
 
-const handler = NextAuth(authOptions)
-export { handler as GET, handler as POST }
+function createNextAuthHandler(req: NextRequest, res: NextResponse) {
+  const apiReq = req as unknown as NextApiRequest;  // Cast to NextApiRequest
+  const apiRes = res as unknown as NextApiResponse;  // Cast to NextApiResponse
+  return NextAuth(apiReq, apiRes, authOptions);  // Pass to NextAuth
+}
+
+export async function GET(req: NextRequest, res: NextResponse) {
+  return createNextAuthHandler(req, res);  // Handle GET request
+}
+
+export async function POST(req: NextRequest, res: NextResponse) {
+  return createNextAuthHandler(req, res);  // Handle POST request
+}
