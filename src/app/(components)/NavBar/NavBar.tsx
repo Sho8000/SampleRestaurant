@@ -1,7 +1,12 @@
+"use client"
+
 import Link from "next/link";
 import { LoginBtn, LogoutBtn } from "../Button/LoginLogout";
+import { useSession } from "next-auth/react";
 
 export default function NavBar() {
+  const { data: session } = useSession()
+  
   return (
     <>
       <nav className="w-[100%] fixed bg-white/50 text-[#0a0a0a] backdrop-blur-md top-0 left-0 z-10 py-[1rem]">
@@ -25,8 +30,11 @@ export default function NavBar() {
             >
               <li>Menu</li>
             </Link>
-            <LoginBtn/>
-            <LogoutBtn/>
+            {session?
+              (<LogoutBtn/>)
+              :(<LoginBtn/>)
+            }
+            
           </ul>
         </div>
       </div>
