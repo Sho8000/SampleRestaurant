@@ -1,13 +1,7 @@
-import { hashCompare, hashPassword } from '@/app/lib/hashPass';
+import { hashCompare } from '@/app/lib/hashPass';
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials'
-
-const admin = [
-  { id: 1, name: "Anderson", languages:["English"], phone:"+1 604-600-9173", email:"Anderson@test.com", password:"$2b$10$MlxmvLIWEV.OqQnDt0yK7uAMmZG9D/34XytFsVKPWbhsAzbEuyv.i" }, //initial Password "email1@123"
-  { id: 2, name: "Andressa", languages:["English"], phone:"+1 778-680-5613", email:"Andressa@test.com", password:"$2b$10$fUWS0UM3zneRpbOxgG3ek.1xS.l1wT.7czsox4yR0qrmPA0L04p2i" }, //initial Password "email2@234"
-  { id: 3, name: "admin1", languages:["English"], phone:"12345", email:"email1@123", password:"$2b$10$kYS3MFkjoY2j8RabUxTsoeqMdRqStJbzt14Pm1JoKoUoi0vdmQ2y6" }, //initial Password "email1@123"
-  { id: 4, name: "admin2", languages:["English"], phone:"12345", email:"email2@234", password:"$2b$10$5IlHpfAT8rNmoF/EqyMCKuh81OO9i0Pa6TbSpyUpLPM7Yk02FM29O" }, //initial Password "email2@234"
-];
+import prisma from '../lib/prisma';
 
 export const authOptions: NextAuthOptions = {
   session:{
@@ -18,40 +12,32 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name:'Email',
       credentials:{
-        email:{
+        useremail:{
           label:"Email",
           type: "email",
           placeholder:"yourEmail@example.com"
         },
         password:{
           label:"Password",
-          type:"passwod"
+          type:"password"
         }
       },
       async authorize(credentials){
-        if(!credentials?.email || !credentials.password){
+
+        if(!credentials?.useremail || !credentials.password){
           return null;
         }
 
-        //from database
-        const user = admin.find((data)=>{
-          return data.email === credentials.email
-        })
-/* 
-        const user = await prisma.instructor.findUnique({
+        const user = await prisma.user.findUnique({
           where: {
-            email: credentials.email
+            useremail: credentials.useremail,
           }
         })
- */
-        console.log("CREDE",user)
 
         if(!user){
+          console.log("No USER", user)
           return null
         }
-
-        const hashedPassword = await hashPassword("Andressa@test.com")
-        console.log("Andressa@test.com",hashedPassword)
 
         const isPasswordValid =  await hashCompare(credentials.password,user.password)
         console.log("Password",isPasswordValid)
@@ -62,8 +48,8 @@ export const authOptions: NextAuthOptions = {
 
         return {
           id:user.id + "",
-          email:user.email,
-          name:user.name,
+          useremail:user.useremail,
+          username:user.username,
         }
       }
     })
@@ -72,9 +58,27 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/auth"
   },
+
   callbacks: {
+    async session({ session, token }) {
+      if (session?.user) {
+        session.user.id = token.id as string;
+        session.user.useremail = token.useremail as string;
+        session.user.username = token.username as string;
+      }
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.useremail = user.useremail;
+        token.username = user.username;
+      }
+      return token;
+    },
+
     async redirect({ baseUrl }) {
       return baseUrl;
     },
-  }
+  },
 }

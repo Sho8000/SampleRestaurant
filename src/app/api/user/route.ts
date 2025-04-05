@@ -7,7 +7,7 @@ export async function GET(){
     return NextResponse.json(UserData);
   } catch (error) {
     console.error("Error getting User Info:", error);
-    return NextResponse.json({ success: false, error: "Failed to get Instructor Info" },{status:500});
+    return NextResponse.json({ success: false, error: "Failed to get User Info" },{status:500});
   }
 }
 

@@ -5,13 +5,13 @@ import { signIn } from "next-auth/react";
 
 export default function UserLogin() {
   const [login, setLogin] = useState({
-    email: "",
+    useremail: "",
     password: "",
   });
 
   const loginHandler = async () => {
     const result = await signIn("credentials",{
-      email:login.email,
+      useremail:login.useremail,
       password:login.password,
       redirect:false,
 /*       callbackUrl:"/menu" */
@@ -19,9 +19,9 @@ export default function UserLogin() {
     console.log("RREESSULT",result)
     if (result?.ok === false) {
       alert("Email or Password was wrong,,,");
-      setLogin({email:'',password:''})
+      setLogin({useremail:'',password:''})
     } else {
-      setLogin({email:'',password:''})
+      setLogin({useremail:'',password:''})
       window.location.href = "/menu";
     }
   };
@@ -34,8 +34,8 @@ export default function UserLogin() {
         className="bg-[#ededed] border-1 border-black/50 shadow-md p-[10px] rounded-sm"
         type="Email"
         placeholder="yourEmail@sample.com"
-        value={login.email}
-        onChange={(e)=> setLogin({ ...login,email:e.target.value})}
+        value={login.useremail}
+        onChange={(e)=> setLogin({ ...login,useremail:e.target.value})}
         required
       />
       <input
