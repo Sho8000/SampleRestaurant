@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LoginBtn, LogoutBtn } from "../Button/LoginLogout";
 
 export default function NavBar() {
   return (
@@ -13,7 +14,7 @@ export default function NavBar() {
           </Link>
         </div>
         <div>
-          <ul className="flex gap-[1rem]">
+          <ul className="flex items-center gap-[1rem]">
             <Link
               href={"/"}
             >
@@ -24,11 +25,8 @@ export default function NavBar() {
             >
               <li>Menu</li>
             </Link>
-            <Link
-              href={"/"}
-            >
-              <li>Login</li>
-            </Link>
+            <LoginBtn/>
+            <LogoutBtn/>
           </ul>
         </div>
       </div>
