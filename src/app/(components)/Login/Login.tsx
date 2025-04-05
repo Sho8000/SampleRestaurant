@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { redirect } from "next/navigation";
 
 export default function UserLogin() {
   const [login, setLogin] = useState({
@@ -22,7 +21,8 @@ export default function UserLogin() {
       alert("Email or Password was wrong,,,");
       setLogin({email:'',password:''})
     } else {
-      redirect('/menu');
+      setLogin({email:'',password:''})
+      window.location.href = "/menu";
     }
   };
 
