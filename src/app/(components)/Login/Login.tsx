@@ -16,6 +16,21 @@ export default function UserLogin() {
     passwordConfirmation:"",
   });
 
+  const loginAsGest = async () => {
+    const result = await signIn("credentials",{
+      useremail:"email1@123",
+      password:"email1@123",
+      redirect:false,
+    })
+    if (result?.ok === false) {
+      alert("Email or Password was wrong,,,");
+      setLogin({useremail:'',password:''})
+    } else {
+      setLogin({useremail:'',password:''})
+      window.location.href = "/menu";
+    }
+  }
+
   const loginHandler = async () => {
     const result = await signIn("credentials",{
       useremail:login.useremail,
@@ -105,15 +120,14 @@ export default function UserLogin() {
             onChange={(e)=>setLogin({...login,password:e.target.value})}
             required
           />
-          <p>*sampleEmail&password: <span className="text-red-600">email1@123</span></p>
           <button
             className="rounded-sm p-[10px] bg-[#0a0a0a] text-[#ededed]"
             onClick={loginHandler}
           >
             Login
           </button>
-          <p className="text-center">or Sign up</p>
-          <button onClick={()=>{signupBtnHandler(true)}}>Sign up</button>
+          <p className="text-center">login as <span className="text-blue-500 cursor-pointer" onClick={loginAsGest}>Guest</span>? or Sign up</p>
+          <button className="text-blue-400 cursor-pointer" onClick={()=>{signupBtnHandler(true)}}>Sign up</button>
         </>):(<>
           <h2 className="text-2xl font-bold text-center">Sign Up</h2>
           <input
@@ -154,8 +168,8 @@ export default function UserLogin() {
           >
             Sign Up
           </button>   
-          <p className="text-center">Login with your account</p>
-          <button onClick={()=>{signupBtnHandler(false)}}>Login</button>     
+          <p className="text-center mb-0">Login with your account</p>
+          <button className="text-blue-400 cursor-pointer" onClick={()=>{signupBtnHandler(false)}}>Login?</button>     
         </>)}
     </div>
   );
