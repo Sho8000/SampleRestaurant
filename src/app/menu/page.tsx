@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <div>
       <h2 className="text-2xl font-bold pt-[2rem] pl-[2rem]">Wellcome, {JSON.stringify(session?.user.username)}</h2>
-      <SectionTemplate1 sectionTitle="Menu" recipeData={recipeData} cardType="menuCard"/>
+      <SectionTemplate1 sectionTitle="Menu" recipeData={recipeData} cardType="menuCard" detail={true}/>
     </div>
   );
 }

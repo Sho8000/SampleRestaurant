@@ -10,10 +10,11 @@ interface SectionTemplate1Props {
   recipeData?:RecipeData[]
   eventData?:EventData[]
   btn?:boolean;
+  detail?:boolean;
   cardType:"menuCard"|"eventCard";
 }
 
-export default function SectionTemplate1 ({sectionTitle,howMany,recipeData,btn,cardType,eventData}:SectionTemplate1Props) {
+export default function SectionTemplate1 ({sectionTitle,howMany,recipeData,btn,cardType,eventData,detail=false}:SectionTemplate1Props) {
 
   const recipeLength = howMany || recipeData?.length;
   const eventLength = howMany || eventData?.length;
@@ -21,7 +22,7 @@ export default function SectionTemplate1 ({sectionTitle,howMany,recipeData,btn,c
   const chooseCard = () => {
     switch (cardType) {
       case "menuCard":
-        return <MenuCard recipeData={recipeData!.slice(0,recipeLength)}/>
+        return <MenuCard recipeData={recipeData!.slice(0,recipeLength)} detail={detail}/>
     
       case "eventCard":
         return <EventCard eventData={eventData!.slice(0,eventLength)}/>        

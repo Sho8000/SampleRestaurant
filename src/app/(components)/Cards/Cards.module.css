@@ -10,3 +10,37 @@
     justify-content: center;
   }
 }
+
+@media only screen and (max-width:700px){
+  .closeBtn{
+    scale: 0.6;
+    top: 3%;
+    left: 65%;
+  }
+  .detailCardContainer{
+    max-width: 300px;
+  }
+  .detailCard{
+    flex-direction: column;
+  }
+  .detailCardImg{
+    height: auto;
+    width: 100%;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 0;
+    border-bottom: 1px solid black;
+  }
+  .detailTextContainer{
+    padding-top: 0;
+  }
+  .detailTitle{
+    font-size: large;
+  }
+  .detailPlice{
+    font-size: large;
+  }
+  .detailContents{
+    font-size: medium;
+  }
+}

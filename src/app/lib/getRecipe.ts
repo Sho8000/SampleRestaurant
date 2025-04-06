@@ -3,6 +3,7 @@ import { Document as RichTextDocument } from '@contentful/rich-text-types'
 import client from "@/app/lib/contentful";
 
 export interface RecipeData {
+  recipeId:string;
   recipeName: string;
   recipeImage: string;
   recipeDescription: RichTextDocument["content"];
@@ -29,6 +30,7 @@ export const allRecipe = async () :Promise<RecipeData[]> => {
       const cmsDescription = item.fields.recipeDescription as RichTextDocument
 
       data.push({
+        recipeId:item.sys.id as string,
         recipeName:item.fields.recipeName as string,
         recipeImage:`https:${cmsImage.fields.file?.url}` as string,
         recipeDescription:cmsDescription.content as RichTextDocument["content"],
