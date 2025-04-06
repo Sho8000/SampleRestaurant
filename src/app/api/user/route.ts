@@ -1,3 +1,4 @@
+import { hashPassword } from "@/app/lib/hashPass";
 import prisma from "@/app/lib/prisma";
 import { NextResponse, NextRequest } from "next/server";
 
@@ -18,11 +19,14 @@ export async function POST(request: NextRequest) {
     if (!body.username || !body.useremail || !body.password) {
       return NextResponse.json({ message: "Missing information" });
     }
+
+    const hashedPassword = await hashPassword(body.password);
+    
     const newInstructor = await prisma.user.create({
       data: {
         useremail: body.useremail as string,
         username: body.username as string,
-        password: body.password as string,
+        password: hashedPassword as string,
       },
     });
 
