@@ -1,0 +1,6 @@
+@media only screen and (max-width:520px){
+  .navContents{
+    flex-direction: column;
+    gap:0.5rem
+  }
+}

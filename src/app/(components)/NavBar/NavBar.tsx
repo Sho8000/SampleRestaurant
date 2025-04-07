@@ -4,6 +4,8 @@ import Link from "next/link";
 import { LoginBtn } from "../Button/LoginLogout";
 import { useSession } from "next-auth/react";
 import YesNoAlert from "../Button/YesNoAlert";
+import { FaShoppingCart } from "react-icons/fa";
+import Styles from "./Navbar.module.css"
 
 export default function NavBar() {
   const { data: session } = useSession()
@@ -11,7 +13,7 @@ export default function NavBar() {
   return (
     <>
       <nav className="w-[100%] fixed bg-white/50 text-[#0a0a0a] backdrop-blur-md top-0 left-0 z-10 py-[1rem]">
-      <div className="flex justify-between items-center mx-[1rem]">
+      <div className={`flex justify-between items-center mx-[1rem] ${Styles.navContents}`}>
         <div>
           <Link
             href={"/"}
@@ -31,6 +33,7 @@ export default function NavBar() {
             >
               <li>Menu</li>
             </Link>
+            {session && <FaShoppingCart size={24}/>}
             {session?
               (<YesNoAlert/>)
               :(<LoginBtn/>)
@@ -43,7 +46,7 @@ export default function NavBar() {
 
       {/* This is for adjusting height */}
       <nav className="w-[100%] bg-white/50 text-white/50 py-[1rem]">
-        <div className="flex justify-between mx-[1rem]">
+        <div className={`flex justify-between items-center mx-[1rem] ${Styles.navContents}`}>
           <div>
             <h2 className="font-bold">NextJS Sample Restaurant</h2>
           </div>
