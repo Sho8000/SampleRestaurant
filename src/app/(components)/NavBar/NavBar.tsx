@@ -1,8 +1,9 @@
 "use client"
 
 import Link from "next/link";
-import { LoginBtn, LogoutBtn } from "../Button/LoginLogout";
+import { LoginBtn } from "../Button/LoginLogout";
 import { useSession } from "next-auth/react";
+import YesNoAlert from "../Button/YesNoAlert";
 
 export default function NavBar() {
   const { data: session } = useSession()
@@ -31,7 +32,7 @@ export default function NavBar() {
               <li>Menu</li>
             </Link>
             {session?
-              (<LogoutBtn/>)
+              (<YesNoAlert/>)
               :(<LoginBtn/>)
             }
             
