@@ -77,9 +77,9 @@ export default function SectionTemplate1 ({sectionTitle,howMany,recipeData,btn,c
       </div>
       <div className="w-[90%] flex justify-end mt-[2rem]">
 
-      {btn?(
+      {btn && (
         <Button text={"See All Menu"}/>
-      ):(<></>)}
+      )}
 
       </div>
     </section>

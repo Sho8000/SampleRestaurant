@@ -14,6 +14,7 @@ export default function MenuCard({recipeData,detail}:recipeProps) {
   const [clickedRecipe,setClickedRecipe] = useState<RecipeData|null>(null);
   const [clickedDetailClose,setClickedDetailClose] = useState<boolean>(false);
   const detailRef = useRef<HTMLDivElement|null>(null);
+  const [pointer,setPointer] = useState("")
 
   useEffect(()=>{
     if(detailRef.current){
@@ -23,6 +24,16 @@ export default function MenuCard({recipeData,detail}:recipeProps) {
       } 
     }
   },[clickedDetailClose])
+
+  useEffect(()=>{
+    if(detail){
+      setPointer("cursor-pointer")
+    } else {
+      setPointer("")
+    }
+
+  },[detail])
+
 
   const menuDetail = (item:RecipeData) => {
     if(detail){
@@ -39,7 +50,7 @@ export default function MenuCard({recipeData,detail}:recipeProps) {
 
   return (
     <>
-      {recipeData.map((item,index)=><div key={index} className="w-[300px] border-1 border-black shadow-md rounded-md px-[20px] py-[10px] bg-[#fefefe]" onClick={()=>{menuDetail(item)}}>
+      {recipeData.map((item,index)=><div key={index} className={`w-[300px] border-1 border-black shadow-md rounded-md px-[20px] py-[10px] bg-[#fefefe] ${pointer}`} onClick={()=>{menuDetail(item)}}>
         <Image
           className="m-auto my-[10px] rounded-md"
           src={item.recipeImage}

@@ -36,7 +36,7 @@ export default function EventCard({eventData}:eventProps) {
             data: {}
           })}
         <div className="my-[1rem]">
-          <button className="bg-[#171717] text-[#ededed] rounded-md px-[1.5rem] py-[0.5rem]">{item.buttonText}</button>
+          <button className="bg-[#171717] text-[#ededed] rounded-md px-[1.5rem] py-[0.5rem] cursor-pointer">{item.buttonText}</button>
         </div>
 
         </div>
