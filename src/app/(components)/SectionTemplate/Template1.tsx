@@ -3,6 +3,7 @@ import Button from "../Button/Button";
 import { RecipeData } from "@/app/lib/getRecipe";
 import { EventData } from "@/app/lib/getEvent";
 import EventCard from "../Cards/EventCard";
+import { useEffect, useRef, useState } from "react";
 
 interface SectionTemplate1Props {
   sectionTitle:string
@@ -18,6 +19,23 @@ export default function SectionTemplate1 ({sectionTitle,howMany,recipeData,btn,c
 
   const recipeLength = howMany || recipeData?.length;
   const eventLength = howMany || eventData?.length;
+  const selectRef = useRef<HTMLDivElement|null>(null);
+  const [categories,setCategories] = useState<string[]>([])
+
+  useEffect(() => {
+    if (recipeData) {
+      const uniqueCategories = [...new Set(recipeData.map((recipe) => recipe.recipeCategory))];
+      setCategories(uniqueCategories);
+    }
+  }, [recipeData]);
+
+  if(selectRef.current){
+    if(detail){
+      selectRef.current.style.display = "block"
+    } else {
+      selectRef.current.style.display = "none"
+    }  
+  }
 
   const chooseCard = () => {
     switch (cardType) {
@@ -30,7 +48,17 @@ export default function SectionTemplate1 ({sectionTitle,howMany,recipeData,btn,c
   }
   return (
     <section className="w-[90%] my-[2rem] m-auto">
-      <h2 className="text-4xl font-bold text-center pb-[2rem]">{sectionTitle}</h2>
+      <h2 className="text-4xl font-bold text-center pb-[1rem]">{sectionTitle}</h2>
+
+      <div ref={selectRef} className="w-fit m-auto mb-[1rem] px-[1rem] py-[0.3rem] border-1 border-black rounded-md">
+        <select name="filter" id="filter">
+          <option value="0">All Menu</option>
+          {categories.map((item,index)=>
+            <option key={index} value={`${item}`}>{item}</option>
+          )}
+        </select>
+      </div>
+
       <div className="flex gap-x-2 gap-y-[1rem] flex-wrap justify-around">
         {chooseCard()}
         
