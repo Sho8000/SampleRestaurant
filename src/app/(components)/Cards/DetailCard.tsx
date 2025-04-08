@@ -4,6 +4,8 @@ import { BLOCKS } from '@contentful/rich-text-types'
 import { RecipeData } from "@/app/lib/getRecipe";
 import { CloseBtn } from "../SVGs/Svg";
 import Styles from "./Cards.module.css"
+import { useSession } from "next-auth/react";
+import { useEffect, useRef, useState } from "react";
 
 interface recipeProps {
   recipe:RecipeData
@@ -11,9 +13,41 @@ interface recipeProps {
 }
 
 export default function DetailCard({recipe,onCloseButtonClick}:recipeProps) {
+  const { data: session } = useSession()
+  const [count,setCount] = useState<number>(0)
+  const decreaseBtnRef = useRef<HTMLButtonElement>(null)
 
+  useEffect(()=>{
+    if(decreaseBtnRef.current){
+      if(count<1){
+        decreaseBtnRef.current.style.backgroundColor="#aaaaaa"
+      } else{
+        decreaseBtnRef.current.style.backgroundColor="black"
+      }
+    }
+  },[count])
   const handleCloseBtnClick = () => {
     onCloseButtonClick(true);
+  }
+
+  const addCartHandler = () => {
+    if(session?.user.username !== "Guest"){
+      alert("Please Sing up to order!!")
+    } else {
+      console.log("added")
+    }
+  }
+
+  const countHandler = () => {
+    setCount(count);
+  };
+
+  const increment = () => {
+    setCount(count+1)
+  }
+
+  const decrement = () => {
+    setCount(count-1)
   }
 
   return (
@@ -44,7 +78,19 @@ export default function DetailCard({recipe,onCloseButtonClick}:recipeProps) {
                     data: {}
                   })}
               </div>
-              <button className={`w-[50%] text-white bg-green-500 mt-[2rem] translate-x-[50%] px-[0.5rem] py-[0.5rem] border-1 border-black rounded-md ${Styles.addBtn}`}>Add Cart</button>
+              <div className="max-w-[100%] flex justify-around items-center mt-[2rem]">
+                <div className="flex gap-x-[1rem] items-center">
+                  <button ref={decreaseBtnRef} className="flex w-[25px] h-[25px] justify-center items-center text-lg font-bold bg-black text-white rounded-[50%]" onClick={decrement} disabled={count<1}>-</button>
+                  <input
+                    type="number"
+                    value={count}
+                    onChange={countHandler}
+                    className="w-[100px] text-center border-1 border-black rounded-md bg-[#ededed] py-[0.2rem]"
+                  />
+                  <button className="flex w-[25px] h-[25px] justify-center items-center text-lg font-bold bg-black text-white rounded-[50%]" onClick={increment}>+</button>
+                </div>
+                <button className={`text-white bg-green-500 px-[0.5rem] py-[0.5rem] border-1 border-black rounded-md ${Styles.addBtn}`} onClick={addCartHandler}>Add Cart</button>
+              </div>
             </div>
           </div>
         </div>          
