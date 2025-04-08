@@ -6,6 +6,7 @@ import { CloseBtn } from "../SVGs/Svg";
 import Styles from "./Cards.module.css"
 import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
+import { useCartDataContext } from "@/app/(context)/CartContext";
 
 interface recipeProps {
   recipe:RecipeData
@@ -16,6 +17,7 @@ export default function DetailCard({recipe,onCloseButtonClick}:recipeProps) {
   const { data: session } = useSession()
   const [count,setCount] = useState<number>(0)
   const decreaseBtnRef = useRef<HTMLButtonElement>(null)
+  const {state,dispatch} = useCartDataContext();
 
   useEffect(()=>{
     if(decreaseBtnRef.current){
@@ -26,6 +28,19 @@ export default function DetailCard({recipe,onCloseButtonClick}:recipeProps) {
       }
     }
   },[count])
+
+  useEffect(() => {
+    const existingItem = state.cart.find(
+      (item) => item.menu.recipeId === recipe.recipeId
+    );
+    
+    if (existingItem) {
+      setCount(existingItem.amount);
+    } else{
+      setCount(0)
+    }
+  }, [state.cart, recipe.recipeId]);
+
   const handleCloseBtnClick = () => {
     onCloseButtonClick(true);
   }
@@ -34,14 +49,27 @@ export default function DetailCard({recipe,onCloseButtonClick}:recipeProps) {
     if(session?.user.username !== "Guest"){
       alert("Please Sing up to order!!")
     } else {
-      console.log("added")
+      if(count<1){
+        alert("Plese select amount");
+      }else{
+        dispatch(
+          { 
+            type:"addCart",
+            recipeInfo:{
+              menu:recipe,
+              amount:count,
+              price:count*recipe.recipePrice}
+          })
+        alert("Added to Cart");
+        onCloseButtonClick(true);
+        console.log("This is Cart",state);
+      }
     }
   }
 
-  const countHandler = () => {
-    setCount(count);
+  const countHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCount(Number(e.target.value));
   };
-
   const increment = () => {
     setCount(count+1)
   }
