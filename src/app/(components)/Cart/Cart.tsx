@@ -63,6 +63,10 @@ export default function Cart() {
       })
   }
 
+  const purchaseBtnHandler = () => {
+    console.log("Here purchase")
+  }
+
   return (
     <div ref={cartPageRef} className="fixed w-[100%] max-w-[426px] min-h-[100%] top-0 left-[100%] bg-[#ededed] border-1 border-gray-500 rounded-l-md z-20" style={{transition: 'transform 0.3s ease'}}>
       <div className="text-end mr-[1rem] mt-[1rem]" onClick={closeBtnHandler}>
@@ -105,8 +109,8 @@ export default function Cart() {
                 <p className="text-sm">Tax: ${parseFloat(Number(state.totalPrice*0.15).toFixed(2)) }</p>
                 <h2 className="text-xl font-bold">Total Price: ${state.totalPrice+state.totalPrice*0.15}</h2>
               </div>
-              <div>
-                purchace
+              <div className="text-center mt-[2rem]">
+                <button className={`w-[50%] text-white bg-green-500 py-[0.5rem] border-1 border-black rounded-md`} onClick={purchaseBtnHandler} >Purchase</button>
               </div>
             </>
           )}
