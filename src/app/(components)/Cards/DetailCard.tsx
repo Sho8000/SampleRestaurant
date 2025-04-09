@@ -71,7 +71,7 @@ export default function DetailCard({recipe,onCloseButtonClick}:recipeProps) {
     setCount(Number(e.target.value));
   };
   const increment = () => {
-    setCount(count+1)
+    setCount(count + 1);
   }
 
   const decrement = () => {
@@ -108,12 +108,12 @@ export default function DetailCard({recipe,onCloseButtonClick}:recipeProps) {
               </div>
               <div className="max-w-[100%] flex justify-around items-center mt-[2rem]">
                 <div className="flex gap-x-[1rem] items-center">
-                  <button ref={decreaseBtnRef} className="flex w-[25px] h-[25px] justify-center items-center text-lg font-bold bg-black text-white rounded-[50%]" onClick={decrement} disabled={count<1}>-</button>
+                  <button ref={decreaseBtnRef} className="flex w-[25px] h-[25px] justify-center items-center text-lg font-bold bg-black text-white rounded-[50%]" onClick={decrement} disabled={count<1}><p className="translate-y-[-1px]">-</p></button>
                   <input
                     type="number"
                     value={count}
                     onChange={countHandler}
-                    className="w-[100px] text-center border-1 border-black rounded-md bg-[#ededed] py-[0.2rem]"
+                    className="w-[60px] text-center border-1 border-black rounded-md bg-[#ededed] py-[0.2rem]"
                   />
                   <button className="flex w-[25px] h-[25px] justify-center items-center text-lg font-bold bg-black text-white rounded-[50%]" onClick={increment}>+</button>
                 </div>

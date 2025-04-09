@@ -15,7 +15,8 @@ interface CartState {
 }
 
 type CartAction = 
-|{type:"addCart"; recipeInfo:Cart}
+| { type:"addCart"; recipeInfo:Cart}
+| { type: "removeItem"; recipeId: string };
 
 const initialState:CartState= {
   cart:[],
@@ -43,6 +44,15 @@ const reducer = (state: CartState, action: CartAction): CartState => {
       const totalPrice = newCart.reduce((total, item)=>{return total+item.price},0)
 
       return {cart:newCart,totalPrice:totalPrice};
+  
+      case "removeItem": {
+        const newCart = state.cart.filter(
+          (item) => item.menu.recipeId !== action.recipeId
+        );
+        const totalPrice = newCart.reduce((total, item) => total + item.price, 0);
+        return { cart: newCart, totalPrice: totalPrice };
+      }
+      
     default:
      return state;
   }
