@@ -6,10 +6,21 @@ import { useSession } from "next-auth/react";
 import YesNoAlert from "../Button/YesNoAlert";
 import { FaShoppingCart } from "react-icons/fa";
 import Styles from "./Navbar.module.css"
+import { useCartPageContext } from "@/app/(context)/CartIconContext";
 
 export default function NavBar() {
   const { data: session } = useSession()
+  const {isCartPage,changeCartPageStatus} = useCartPageContext();
+
   
+  const cartIconHandler = () => {
+    if (isCartPage) {
+      changeCartPageStatus(false);
+    } else {
+      changeCartPageStatus(true);
+    }
+  }
+
   return (
     <>
       <nav className="w-[100%] fixed bg-white/50 text-[#0a0a0a] backdrop-blur-md top-0 left-0 z-10 py-[1rem]">
@@ -33,7 +44,7 @@ export default function NavBar() {
             >
               <li>Menu</li>
             </Link>
-            {session && <FaShoppingCart size={24}/>}
+            {session && <FaShoppingCart size={24} onClick={cartIconHandler}/>}
             {session?
               (<YesNoAlert/>)
               :(<LoginBtn/>)

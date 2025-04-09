@@ -15,8 +15,6 @@ interface CartState {
 }
 
 type CartAction = 
-//|{type:"increase"; amount:number}
-//|{type:"decrease"; amount:number}
 |{type:"addCart"; recipeInfo:Cart}
 
 const initialState:CartState= {
@@ -45,23 +43,6 @@ const reducer = (state: CartState, action: CartAction): CartState => {
       const totalPrice = newCart.reduce((total, item)=>{return total+item.price},0)
 
       return {cart:newCart,totalPrice:totalPrice};
-/*    case 'increase':
-      state.cart.find((each)=>{
-       if(each.id === action.item.id){
-        each.amount++;
-      }
-      })
-      return {cart:[...state.cart]} 
-      break;
-    case 'decrease':
-       state.cart.find((each)=>{
-        if(each.id === action.item.id){
-          if(each.amount>0){
-            each.amount--;
-          }
-        }
-      })
-      return {cart:[...state.cart]} */
     default:
      return state;
   }
