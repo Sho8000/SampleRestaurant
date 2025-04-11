@@ -4,7 +4,6 @@ import "./globals.css";
 import Footer from "./(components)/Footer/Footer";
 import NavBar from "./(components)/NavBar/NavBar";
 import { SessionProviders } from "./providers";
-import { CartDataContextProvider } from "./(context)/CartContext";
 import { CartPageContextProvider } from "./(context)/CartIconContext";
 import Cart from "./(components)/Cart/Cart";
 
@@ -35,12 +34,10 @@ export default function RootLayout({
       >
         <SessionProviders>
           <CartPageContextProvider>
-            <CartDataContextProvider>
-              <NavBar/>
+            <NavBar/>
               <Cart/>
                 {children}
               <Footer/>
-            </CartDataContextProvider>
           </CartPageContextProvider>
         </SessionProviders>
       </body>

@@ -3,13 +3,17 @@
 import { useCartPageContext } from "@/app/(context)/CartIconContext";
 import { CloseBtn } from "../SVGs/Svg";
 import { useEffect, useRef } from "react";
-import { Cart as contexCart, useCartDataContext } from "@/app/(context)/CartContext";
 import Image from "next/image";
+import { Cart as contexCart, useCartStore } from "@/store/cartStore";
 
 export default function Cart() {
   const {isCartPage,changeCartPageStatus} = useCartPageContext()
   const cartPageRef = useRef<HTMLDivElement>(null);
-  const {state,dispatch} = useCartDataContext();
+  const cart = useCartStore((state) => state.cart)
+  const totalPrice = useCartStore((state) => state.totalPrice)
+  const addCart = useCartStore((state) => state.addCart)
+  const removeItem = useCartStore((state) => state.removeItem)
+
 
   useEffect(()=>{
     if(cartPageRef.current){
@@ -27,39 +31,29 @@ export default function Cart() {
 
   const decrement = (cart:contexCart) => {
     if(cart.amount<=1){
-      dispatch(
+      addCart(
         { 
-          type:"addCart",
-          recipeInfo:{
-            menu:cart.menu,
-            amount:cart.amount-1,
-            price:(cart.amount-1)*cart.menu.recipePrice}
+          menu:cart.menu,
+          amount:cart.amount-1,
+          price:(cart.amount-1)*cart.menu.recipePrice
         })
-      dispatch(
-        {
-          type:"removeItem",
-          recipeId:cart.menu.recipeId
-        })
+      removeItem(cart.menu.recipeId)
     }else{
-      dispatch(
+      addCart(
         { 
-          type:"addCart",
-          recipeInfo:{
-            menu:cart.menu,
-            amount:cart.amount-1,
-            price:(cart.amount-1)*cart.menu.recipePrice}
+          menu:cart.menu,
+          amount:cart.amount-1,
+          price:(cart.amount-1)*cart.menu.recipePrice
         })
     }
   }
 
   const increment = (cart:contexCart) => {
-    dispatch(
+    addCart(
       { 
-        type:"addCart",
-        recipeInfo:{
-          menu:cart.menu,
-          amount:cart.amount+1,
-          price:(cart.amount+1)*cart.menu.recipePrice}
+        menu:cart.menu,
+        amount:cart.amount+1,
+        price:(cart.amount+1)*cart.menu.recipePrice
       })
   }
 
@@ -77,11 +71,11 @@ export default function Cart() {
           <h2 className="text-xl font-bold text-center underline">🛒 Your Cart 🛒</h2>
         </div>
         <div>
-          {state.cart.length === 0 ? 
+          {cart.length === 0 ? 
           (<p className="text-center mt-[1rem]">Your cart is empty,,,</p>)
           :(
             <>
-              {state.cart.map((item,index)=>{
+              {cart.map((item,index)=>{
                 return <div key={index} className="flex w-[90%] border-1 border-black rounded-md m-auto mt-[1rem]">
                   <Image
                     className="rounded-l-md"
@@ -105,9 +99,9 @@ export default function Cart() {
                 </div>
               })}
               <div className="mt-[2rem] text-right mr-[1rem]">
-                <p className="text-sm">Price: ${state.totalPrice}</p>
-                <p className="text-sm">Tax: ${parseFloat(Number(state.totalPrice*0.15).toFixed(2)) }</p>
-                <h2 className="text-xl font-bold">Total Price: ${state.totalPrice+state.totalPrice*0.15}</h2>
+                <p className="text-sm">Price: ${totalPrice}</p>
+                <p className="text-sm">Tax: ${parseFloat(Number(totalPrice*0.15).toFixed(2)) }</p>
+                <h2 className="text-xl font-bold">Total Price: ${totalPrice+totalPrice*0.15}</h2>
               </div>
               <div className="text-center mt-[2rem]">
                 <button className={`w-[50%] text-white bg-green-500 py-[0.5rem] border-1 border-black rounded-md`} onClick={purchaseBtnHandler} >Purchase</button>
