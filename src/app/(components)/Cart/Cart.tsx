@@ -74,7 +74,7 @@ export default function Cart() {
       </div>
       <div className="h-auto max-h-[calc(100vh-150px)] overflow-y-scroll">
         <div>
-          <h2 className="text-xl font-bold text-center underline">Your Cart</h2>
+          <h2 className="text-xl font-bold text-center underline">🛒 Your Cart 🛒</h2>
         </div>
         <div>
           {state.cart.length === 0 ? 
