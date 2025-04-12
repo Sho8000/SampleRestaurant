@@ -7,11 +7,12 @@ import YesNoAlert from "../Button/YesNoAlert";
 import { FaShoppingCart } from "react-icons/fa";
 import Styles from "./Navbar.module.css"
 import { useCartPageContext } from "@/app/(context)/CartIconContext";
+import { useCartStore } from "@/store/cartStore";
 
 export default function NavBar() {
   const { data: session } = useSession()
   const {isCartPage,changeCartPageStatus} = useCartPageContext();
-
+  const totalItems = useCartStore((state) => state.totalItems)
   
   const cartIconHandler = () => {
     if (isCartPage) {
@@ -44,7 +45,15 @@ export default function NavBar() {
             >
               <li>Menu</li>
             </Link>
-            {session && <FaShoppingCart size={24} onClick={cartIconHandler}/>}
+            {session && 
+              <div className="relative">
+                <FaShoppingCart size={24} onClick={cartIconHandler}/>
+                {totalItems>=1 && 
+                  <div className="absolute flex justify-center items-center top-0 left-[100%] translate-x-[-70%] w-[12px] h-[12px] rounded-[50%] bg-green-500 "><p className={`text-sm text-white  ${Styles.totalItemsTextShadow}`}>{totalItems}</p></div>
+                }
+              </div>
+            }
+
             {session?
               (<YesNoAlert/>)
               :(<LoginBtn/>)

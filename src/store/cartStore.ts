@@ -11,6 +11,7 @@ export interface Cart {
 interface CartState {
   email: string
   cart: Cart[]
+  totalItems: number
   totalPrice: number
   setEmail: (email: string) => void
   addCart: (recipeInfo: Cart) => void
@@ -25,12 +26,13 @@ export const useCartStore = create<CartState>()(
     (set, get) => ({
       email: "",
       cart: [],
+      totalItems: 0,
       totalPrice: 0,
 
       setEmail: (email) => {
         const prevEmail = get().email;
         if (prevEmail && prevEmail !== email) {
-          set({ cart: [], totalPrice: 0 });
+          set({ cart: [], totalItems:0, totalPrice: 0 });
         }
         set({ email });
       },
@@ -52,8 +54,9 @@ export const useCartStore = create<CartState>()(
         }
 
         const totalPrice = newCart.reduce((sum, item) => sum + item.price, 0)
+        const totalItems = newCart.reduce((sum,item) => sum + item.amount, 0)
 
-        set({ cart: newCart, totalPrice })
+        set({ cart: newCart, totalPrice, totalItems })
       },
 
       removeItem: (recipeId) => {
@@ -61,11 +64,12 @@ export const useCartStore = create<CartState>()(
           (item) => item.menu.recipeId !== recipeId
         )
         const totalPrice = newCart.reduce((sum, item) => sum + item.price, 0)
-        set({ cart: newCart, totalPrice })
+        const totalItems = newCart.reduce((sum,item) => sum + item.amount, 0)
+        set({ cart: newCart, totalPrice,totalItems })
       },
 
       deleteCartItems: () => {
-        set({ cart: [], totalPrice:0 })
+        set({ cart: [], totalPrice:0, totalItems:0 })
       },
     }),
     {
