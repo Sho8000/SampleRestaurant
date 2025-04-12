@@ -13,6 +13,7 @@ interface CartState {
   totalPrice: number
   addCart: (recipeInfo: Cart) => void
   removeItem: (recipeId: string) => void
+  deleteCartItems: ()=> void
 }
 
 export const useCartStore = create<CartState>()(
@@ -48,6 +49,10 @@ export const useCartStore = create<CartState>()(
         )
         const totalPrice = newCart.reduce((sum, item) => sum + item.price, 0)
         set({ cart: newCart, totalPrice })
+      },
+
+      deleteCartItems: () => {
+        set({ cart: [], totalPrice:0 })
       },
     }),
     {

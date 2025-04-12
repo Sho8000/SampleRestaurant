@@ -2,7 +2,7 @@
 
 import { useCartPageContext } from "@/app/(context)/CartIconContext";
 import { CloseBtn } from "../SVGs/Svg";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Cart as contexCart, useCartStore } from "@/store/cartStore";
 
@@ -13,7 +13,10 @@ export default function Cart() {
   const totalPrice = useCartStore((state) => state.totalPrice)
   const addCart = useCartStore((state) => state.addCart)
   const removeItem = useCartStore((state) => state.removeItem)
-
+  const deleteCartItems = useCartStore((state) => state.deleteCartItems)
+  const [clickedPurchase,setClickedPurchase] = useState(false);
+  const [paymentWay,setPaymentWay] = useState<string|null>(null)
+  const [is_eTransfar,setIs_eTransfar] = useState(false)
 
   useEffect(()=>{
     if(cartPageRef.current){
@@ -58,7 +61,23 @@ export default function Cart() {
   }
 
   const purchaseBtnHandler = () => {
-    console.log("Here purchase")
+    if(!paymentWay){
+      alert("Please choose the payment way!!")
+      return
+    }
+    if(paymentWay==="Pay in Cash"){
+      alert(`Your order has been successfully placed.\nWe will begin preparing your meal once payment is received.`)
+    }else{
+      alert(`Your order has been successfully placed.\nWe will begin preparing your meal once payment is received. Your order will be ready approximately 15 minutes thereafter.`)
+    }
+    deleteCartItems();
+    setPaymentWay(null)
+    changeCartPageStatus(false);
+    setIs_eTransfar(false);
+  }
+
+  const gotopurchaseHandler = () => {
+    setClickedPurchase(true);
   }
 
   return (
@@ -104,7 +123,53 @@ export default function Cart() {
                 <h2 className="text-xl font-bold">Total Price: ${totalPrice+totalPrice*0.15}</h2>
               </div>
               <div className="text-center mt-[2rem]">
-                <button className={`w-[50%] text-white bg-green-500 py-[0.5rem] border-1 border-black rounded-md`} onClick={purchaseBtnHandler} >Purchase</button>
+              {clickedPurchase ? (<>
+                <div className="w-[100%] space-y-4 border-y-1 border-dashed border-black py-[1rem]">
+                  <h2 className="text-xl font-bold text-center">How do you pay?</h2>
+                  <div className="w-[80%] flex items-center space-x-3 m-auto">
+                    <input
+                      type="radio"
+                      id="e-transfer"
+                      name="paymentWay"
+                      value="e-Transfer"
+                      className="h-5 w-5"
+                      onChange={(e)=> {
+                        setPaymentWay(e.target.value)
+                        setIs_eTransfar(true)
+                      }
+                    }
+                  />
+                    <label htmlFor="e-transfer" className="text-lg">e-Transfer</label>
+                  </div>
+
+                  {is_eTransfar && 
+                    <div className="w-[80%] text-left m-auto mb-[0.5rem]">
+                      <p>Send payment to this phone number:</p>
+                      <p className="font-bold">(123)456-7890</p>
+                    </div>
+                  }
+                  
+                  <div className="w-[80%] flex items-center space-x-3 m-auto">
+                    <input
+                      type="radio"
+                      id="cash"
+                      name="paymentWay"
+                      value="Pay in Cash"
+                      className="h-5 w-5"
+                      onChange={(e)=> {
+                          setPaymentWay(e.target.value)
+                          setIs_eTransfar(false)
+                        }
+                      }
+                    />
+                    <label htmlFor="cash" className="text-lg">Pay in Cash</label>
+                  </div>
+                </div>
+                <button className={`w-[50%] text-white bg-green-500 py-[0.5rem] mt-[2rem] border-1 border-black rounded-md`} onClick={purchaseBtnHandler} >Purchase</button>
+              </>):(<>
+                <button className={`w-[50%] text-white bg-green-500 py-[0.5rem] border-1 border-black rounded-md`} onClick={gotopurchaseHandler} >Go to Purchase</button>
+              </>)}
+
               </div>
             </>
           )}

@@ -47,7 +47,7 @@ export default function DetailCard({recipe,onCloseButtonClick}:recipeProps) {
   }
 
   const addCartHandler = () => {
-    if(session?.user.username !== "Guest"){
+    if(session?.user.id === "67f18026c2042ec369885ad3"){
       alert("Please Sing up to order!!")
     } else {
       if(count<1){
