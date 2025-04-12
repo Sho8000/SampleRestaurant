@@ -68,11 +68,11 @@ export default function MenuCard({recipeData,detail}:recipeProps) {
             data: {}
           })}
       </div>)}
-      {clickedRecipe?
+      {clickedRecipe &&
         (<div ref={detailRef}>
           <DetailCard recipe={clickedRecipe} onCloseButtonClick={handleCloseBtnClick}/>
         </div>)
-        :(<></>)}
+      }
     </>
   );
 }

@@ -22,7 +22,7 @@ export default function YesNoAlert() {
   return (
     <div>
       <button className="bg-[#0a0a0a] text-[#ededed] px-[0.5rem] py-[0.2rem] rounded-md cursor-pointer"
-      onClick={() => triggerAlert(`Do you want to logout?\n(Cart information won't be saved.)`)}>
+      onClick={() => triggerAlert(`Do you want to logout?\n(The cart data is only stored temporarily.)`)}>
         Sign Out
       </button>
 
