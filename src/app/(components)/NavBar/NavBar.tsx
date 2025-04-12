@@ -46,7 +46,7 @@ export default function NavBar() {
               <li>Menu</li>
             </Link>
             {session && 
-              <div className="relative">
+              <div className="relative cursor-pointer">
                 <FaShoppingCart size={24} onClick={cartIconHandler}/>
                 {totalItems>=1 && 
                   <div className="absolute flex justify-center items-center top-0 left-[100%] translate-x-[-70%] w-[12px] h-[12px] rounded-[50%] bg-green-500 "><p className={`text-sm text-white  ${Styles.totalItemsTextShadow}`}>{totalItems}</p></div>
