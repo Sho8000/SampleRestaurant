@@ -7,6 +7,8 @@ import Styles from "./Cards.module.css"
 import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { useCartStore } from "@/store/cartStore";
+import { useAlertContext } from "@/app/(context)/AlertContext";
+import AlertCard from "./AlertCard";
 
 interface recipeProps {
   recipe:RecipeData
@@ -16,6 +18,7 @@ interface recipeProps {
 export default function DetailCard({recipe,onCloseButtonClick}:recipeProps) {
   const { data: session } = useSession()
   const [count,setCount] = useState<number>(0)
+  const {isShowAlert,message,addMsg ,changeAlertStatus} = useAlertContext();
   const decreaseBtnRef = useRef<HTMLButtonElement>(null)
   const cart = useCartStore((state) => state.cart)
   const addCart = useCartStore((state) => state.addCart)
@@ -48,10 +51,12 @@ export default function DetailCard({recipe,onCloseButtonClick}:recipeProps) {
 
   const addCartHandler = () => {
     if(session?.user.id === "67f18026c2042ec369885ad3"){
-      alert("Please Sing up to order!!")
+      addMsg("Please Sing up to order!!")
+      changeAlertStatus(true)
     } else {
       if(count<1){
-        alert("Plese select amount");
+        addMsg("Plese select amount")
+        changeAlertStatus(true)  
       }else{
         addCart(
           { 
@@ -59,7 +64,9 @@ export default function DetailCard({recipe,onCloseButtonClick}:recipeProps) {
               amount:count,
               price:count*recipe.recipePrice
           })
-        alert("Added to Cart");
+        addMsg("🛒 Added to Cart 🛒")
+        changeAlertStatus(true)
+        
         onCloseButtonClick(true);
       }
     }
@@ -121,6 +128,10 @@ export default function DetailCard({recipe,onCloseButtonClick}:recipeProps) {
           </div>
         </div>          
       </div>
+
+      {isShowAlert && 
+        <AlertCard message={message}/>
+      }
     </>
   );
 }

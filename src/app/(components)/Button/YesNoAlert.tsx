@@ -31,8 +31,8 @@ export default function YesNoAlert() {
           <div className="bg-[#ededed] p-[20px] rounded-md text-center">
             <p>{message}</p>
             <div className="flex justify-center gap-[1rem] mt-[1rem]">
-              <button className="bg-[#0a0a0a] text-[#ededed] px-[0.5rem] py-[0.2rem] rounded-md cursor-pointer" onClick={handleYes}>Yes</button>
-              <button className="bg-[#0a0a0a] text-[#ededed] px-[0.5rem] py-[0.2rem] rounded-md cursor-pointer" onClick={handleNo}>No</button>
+              <button className="w-[100px] bg-[#0a0a0a] text-[#ededed] px-[0.5rem] py-[0.2rem] rounded-md cursor-pointer" onClick={handleYes}>Yes</button>
+              <button className="w-[100px] bg-[#0a0a0a] text-[#ededed] px-[0.5rem] py-[0.2rem] rounded-md cursor-pointer" onClick={handleNo}>No</button>
             </div>
           </div>
         </div>
