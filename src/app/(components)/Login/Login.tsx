@@ -76,7 +76,7 @@ export default function UserLogin() {
       return null;
     }
     
-    const response = await fetch("http://localhost:3000/api/user", {
+    const response = await fetch("/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

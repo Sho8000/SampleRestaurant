@@ -10,7 +10,7 @@ export default function TitleCard() {
       initial={{opacity:0}}
       animate={{opacity:1, transition:{delay:1.5}}}
     >
-      <h1 className="font-bold text-4xl">NextJS Sample Restaurant</h1>
+      <h1 className="font-bold text-4xl">Create Next App</h1>
       <p>Discover a unique culinary experience with our fusion of traditional and modern flavors</p>
       <Link
         href={"/menu"}

@@ -47,7 +47,7 @@ export default function Footer() {
         <FooterCard footerData={footerFollowUs}/>
       </div>
       <div className='border-t-1 border-[#ededed] mt-[1rem] pt-[1rem]'>
-        <p className='text-[#ededed] text-center  mx-[1rem]'>© 2025 NextJS Sample Restaurant. All rights reserved.</p>
+        <p className='text-[#ededed] text-center  mx-[1rem]'>© 2025 Next App. All rights reserved.</p>
       </div>
     </section>
   );

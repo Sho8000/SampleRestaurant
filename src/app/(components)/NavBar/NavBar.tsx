@@ -30,7 +30,7 @@ export default function NavBar() {
           <Link
             href={"/"}
           >
-            <h2 className="font-bold">NextJS Sample Restaurant</h2>
+            <h2 className="font-bold">Create Next App</h2>
           </Link>
         </div>
         <div>
@@ -68,7 +68,7 @@ export default function NavBar() {
       <nav className="w-[100%] bg-white/50 text-white/50 py-[1rem]">
         <div className={`flex justify-between items-center mx-[1rem] ${Styles.navContents}`}>
           <div>
-            <h2 className="font-bold">NextJS Sample Restaurant</h2>
+            <h2 className="font-bold">Create Next App</h2>
           </div>
           <div>
             <ul className="flex gap-[1rem]">
